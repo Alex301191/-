@@ -37,16 +37,25 @@ class Student:
 
         return res
 
-    def student_comparison(self, foe):
-        if isinstance(foe, Student):
-            first = self.get_average_grades()
-            second = foe.get_average_grades()
-            if first > second:
-                return f'{self.name} {self.surname} круче'
-            else:
-                return f'{foe.name} {foe.surname} круче'
+    def __lt__(self, other):
+        if not isinstance(other, Student):
+            print('Это не студент!')
+            return
+        if self.get_average_grades() < other.get_average_grades():
+            return f"{self.name + ' ' + self.surname} круче"
         else:
-            return 'Ошибка'
+            return f"{self.name + ' ' + self.surname} круче"
+
+    # def student_comparison(self, foe):
+    #     if isinstance(foe, Student):
+    #         first = self.get_average_grades()
+    #         second = foe.get_average_grades()
+    #         if first > second:
+    #             return f'{self.name} {self.surname} круче'
+    #         else:
+    #             return f'{foe.name} {foe.surname} круче'
+    #     else:
+    #         return 'Ошибка'
 
 
 class Mentor:
@@ -75,16 +84,25 @@ class Lecturer(Mentor):
               f'\nСредняя оценка за лекции: {self.get_average_grades()}'
         return res
 
-    def lectures_comparison(self, foe):
-        first = self.get_average_grades()
-        second = foe.get_average_grades()
-        if isinstance(foe, Lecturer):
-            if first > second:
-                return f'{self.name} {self.surname} круче'
-            else:
-                return f'{foe.name} {foe.surname} круче'
+    def __lt__(self, other):
+        if not isinstance(other, Lecturer):
+            print('Это не лектор!')
+            return
+        if self.get_average_grades() < other.get_average_grades():
+            return f"{self.name + ' ' + self.surname} круче"
         else:
-            return 'Ошибка'
+            return f"{self.name + ' ' + self.surname} круче"
+
+    # def lectures_comparison(self, foe):
+    #     first = self.get_average_grades()
+    #     second = foe.get_average_grades()
+    #     if isinstance(foe, Lecturer):
+    #         if first > second:
+    #             return f'{self.name} {self.surname} круче'
+    #         else:
+    #             return f'{foe.name} {foe.surname} круче'
+    #     else:
+    #         return 'Ошибка'
 
 
 class Reviewer(Mentor):
@@ -191,8 +209,8 @@ print(ronald_wizly)
 print('\n')
 
 print('Сравним студентов и лекторов по средним оценкам:')
-print(patric_baitman.student_comparison(gunness_belle))
-print(harry_potter.lectures_comparison(ronald_wizly))
+print(patric_baitman.__lt__(gunness_belle))
+print(harry_potter.__lt__(ronald_wizly))
 print('\n')
 
 
